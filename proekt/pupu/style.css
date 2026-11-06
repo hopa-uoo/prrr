@@ -1,0 +1,1382 @@
+/* ============================================
+   DEADLINE — минимализм, нежно-голубой
+   ============================================ */
+
+
+/* ---------- Переменные ---------- */
+
+:root {
+    --bg: #dfe9f2;          /* фон страницы */
+    --bg-light: #f3f8fc;    /* верх фона */
+    --bg-gradient: linear-gradient(170deg, #f7f4ef 0%, #eaf1f7 55%, #dee9f2 100%);
+    --surface: #ffffff;     /* карточки */
+    --accent: #8aa5bd;      /* приглушённый голубой */
+    --accent-dark: #6c8aa4;
+    --text: #2f3e4e;
+    --text-soft: #8b9aa9;
+    --line: #e2ebf2;
+    --danger: #b96a78;
+}
+
+
+/* ---------- Общее ---------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.app {
+    width: 100%;
+    max-width: 420px;
+    padding: 24px 18px 110px;
+    min-height: 100vh;
+}
+
+
+/* ---------- Экраны ---------- */
+
+.screen {
+    display: none;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.screen.is-active {
+    display: flex;
+}
+
+.screen__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.screen__title {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.screen__title--center {
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+}
+
+.spacer {
+    width: 34px;
+}
+
+.section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+}
+
+.section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.section-count {
+    font-size: 12px;
+    color: var(--text-soft);
+}
+
+.hint {
+    padding: 12px 0;
+    font-size: 13px;
+    text-align: center;
+    color: var(--text-soft);
+}
+
+.icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+    color: var(--accent-dark);
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 50%;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.icon-btn--sm {
+    width: 30px;
+    height: 30px;
+    font-size: 17px;
+}
+
+
+/* ---------- Экран-приветствие ---------- */
+
+.onboarding {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 92px 28px 52px;
+    background: var(--bg-gradient);
+}
+
+.onboarding.is-hidden {
+    display: none;
+}
+
+.onboarding__center {
+    text-align: center;
+}
+
+.onboarding__logo {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 46px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #5c7590;
+}
+
+.onboarding__subtitle {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #7d8fa1;
+}
+
+.onboarding__heart {
+    display: block;
+    margin-top: 28px;
+    font-size: 22px;
+    color: #93a9bd;
+}
+
+.onboarding__btn {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    border-radius: 26px;
+}
+
+/* Страница с вопросом персонализации */
+.onboarding--quiz {
+    padding-top: 80px;
+}
+
+.quiz {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+}
+
+.quiz__step {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9aabbc;
+}
+
+.quiz__question {
+    max-width: 280px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text);
+}
+
+.quiz__page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.quiz__page.is-hidden {
+    display: none;
+}
+
+.quiz__input {
+    width: 230px;
+    max-width: 100%;
+    padding: 12px 16px;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--accent-dark);
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1.5px solid rgba(147, 169, 189, 0.4);
+    border-radius: 14px;
+    outline: none;
+}
+
+.quiz__input:focus {
+    border-color: var(--accent);
+}
+
+.quiz__input::placeholder {
+    font-weight: 400;
+    color: #9aabbc;
+}
+
+.quiz__hint {
+    max-width: 260px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #9aabbc;
+}
+
+/* Приводим системные часы к нашему стилю */
+.quiz input[type="time"]::-webkit-datetime-edit,
+.settings__time::-webkit-datetime-edit {
+    color: var(--accent-dark);
+}
+
+.quiz input[type="time"]::-webkit-calendar-picker-indicator,
+.settings__time::-webkit-calendar-picker-indicator {
+    opacity: 0.35;
+    cursor: pointer;
+}
+
+
+/* ---------- Главная ---------- */
+
+.home__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.home__greeting {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.home__subtitle {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--text-soft);
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.avatar svg {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* ---------- Поиск ---------- */
+
+.search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+}
+
+.search__icon {
+    width: 16px;
+    height: 16px;
+    color: var(--text-soft);
+    flex-shrink: 0;
+}
+
+.search__input {
+    width: 100%;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text);
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.search__input::placeholder {
+    color: var(--text-soft);
+}
+
+
+/* ---------- Неделя ---------- */
+
+.week__days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.week__day {
+    padding: 8px 0;
+    text-align: center;
+    font-size: 10px;
+    color: var(--text-soft);
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+}
+
+.week__day-name {
+    display: block;
+}
+
+.week__day-num {
+    display: block;
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.week__day.is-today {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.week__day.is-today .week__day-name,
+.week__day.is-today .week__day-num {
+    color: #fff;
+}
+
+
+/* ---------- Списки ---------- */
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+/* ---------- Карточка дедлайна ---------- */
+
+.task-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    font-family: inherit;
+    text-align: left;
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(47, 62, 78, 0.05);
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.2s ease;
+}
+
+.task-card:active {
+    transform: scale(0.99);
+}
+
+.task-card--compact {
+    padding: 10px 12px;
+}
+
+/* Номер задания в списке предмета */
+.task-card__num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-dark);
+    background-color: #eef4f9;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.task-card--done {
+    opacity: 0.62;
+}
+
+.task-card--done .task-card__subject {
+    text-decoration: line-through;
+}
+
+.task-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.task-card__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.task-card__subject {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.task-card__title {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--text-soft);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.task-card__subject--empty {
+    font-weight: 500;
+    font-style: italic;
+    color: var(--text-soft);
+}
+
+.task-card__date {
+    display: block;
+    margin-top: 5px;
+    font-size: 11px;
+    color: var(--text-soft);
+}
+
+.task-card__date--overdue { color: var(--danger); }
+.task-card__date--today   { color: var(--danger); font-weight: 600; }
+.task-card__date--soon    { color: #a87400; }
+.task-card__date--ok      { color: #4a8062; }
+
+.task-card__state {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--accent-dark);
+    background-color: #eef4f9;
+    border-radius: 20px;
+}
+
+.task-card__badge {
+    padding: 5px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--accent-dark);
+    background-color: #eef4f9;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.chevron {
+    font-size: 20px;
+    line-height: 1;
+    color: #b9c9d6;
+    flex-shrink: 0;
+}
+
+
+/* ---------- Пустое состояние ---------- */
+
+.empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-soft);
+}
+
+.empty__icon {
+    margin-bottom: 10px;
+    font-size: 34px;
+}
+
+.empty__text {
+    margin-bottom: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.empty__hint {
+    font-size: 12px;
+}
+
+
+/* ---------- Группы внутри списка дедлайнов ---------- */
+
+.deadline-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.deadline-group__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+}
+
+.deadline-group__count {
+    padding: 1px 8px;
+    font-size: 10px;
+    color: var(--accent-dark);
+    background-color: var(--surface);
+    border-radius: 20px;
+}
+
+
+/* ---------- Календарь ---------- */
+
+.calendar-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 14px;
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(47, 62, 78, 0.05);
+}
+
+.calendar__nav {
+    display: flex;
+    gap: 6px;
+}
+
+.calendar__weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-top: 2px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-soft);
+}
+
+.calendar__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.cal-day {
+    position: relative;
+    aspect-ratio: 1;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--text);
+    background: none;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.cal-day.has-task::after {
+    content: "";
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--accent-dark);
+}
+
+.cal-day.is-today {
+    border: 1.5px solid var(--accent);
+}
+
+.cal-day.is-selected {
+    color: #fff;
+    background-color: var(--accent);
+}
+
+.cal-day.is-selected::after {
+    background-color: #fff;
+}
+
+
+/* ---------- Предметы ---------- */
+
+/* Каждый предмет — отдельный блок.
+   Большой отступ добавляется только когда список раскрыт. */
+.list.subjects-list {
+    gap: 10px;
+}
+
+.subject-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+/* Свёрнутый предмет — отступаем столько же, сколько обычные блоки */
+.subject-group.is-collapsed {
+    margin-bottom: 0;
+}
+
+.subject-group__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(47, 62, 78, 0.05);
+}
+
+/* Три кнопки в шапке предмета */
+.subject-group__actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.icon-btn--chevron svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+    /* Список открыт — стрелка смотрит вверх */
+    transform: rotate(180deg);
+}
+
+.is-collapsed .icon-btn--chevron svg {
+    /* Список свёрнут — стрелка смотрит вниз */
+    transform: rotate(0deg);
+}
+
+.icon-btn--danger {
+    color: var(--danger);
+    background-color: rgba(201, 107, 123, 0.12);
+    border-color: rgba(201, 107, 123, 0.22);
+}
+
+.icon-btn--danger:hover {
+    background-color: rgba(201, 107, 123, 0.2);
+}
+
+.icon-btn--danger svg {
+    width: 15px;
+    height: 15px;
+}
+
+/* Задания под предметом — с отступом и вертикальной линией */
+.subject-group__tasks {
+    margin-left: 20px;
+    padding-left: 12px;
+    border-left: 1.5px dashed var(--line);
+}
+
+.subject-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    font-family: inherit;
+    text-align: left;
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(47, 62, 78, 0.05);
+    cursor: pointer;
+}
+
+.subject-row__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.subject-row__info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.subject-row__name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.subject-row__count {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--text-soft);
+}
+
+
+/* ---------- Экран предмета ---------- */
+
+.subject-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0 2px;
+}
+
+.subject-hero__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 66px;
+    height: 66px;
+    font-size: 28px;
+    border-radius: 20px;
+}
+
+.subject-hero__count {
+    font-size: 13px;
+    color: var(--text-soft);
+}
+
+
+/* ---------- Профиль / статистика ---------- */
+
+.stats-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(47, 62, 78, 0.05);
+}
+
+.ring {
+    display: grid;
+    place-items: center;
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) 0%, #e5eef6 0%);
+    flex-shrink: 0;
+}
+
+.ring__inner {
+    display: grid;
+    place-items: center;
+    width: 66px;
+    height: 66px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent-dark);
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.stats-card__title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.stats-card__sub {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--text-soft);
+}
+
+.bars-card {
+    padding: 16px;
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(47, 62, 78, 0.05);
+}
+
+.bars {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    height: 84px;
+    margin-top: 14px;
+}
+
+.bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    height: 100%;
+}
+
+.bar__fill {
+    width: 12px;
+    border-radius: 6px 6px 3px 3px;
+    background-color: var(--accent);
+}
+
+.bar__label {
+    font-size: 10px;
+    color: var(--text-soft);
+}
+
+
+/* ---------- Настройки ---------- */
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(47, 62, 78, 0.05);
+}
+
+.settings__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text);
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.settings__row + .settings__row {
+    border-top: 1px solid var(--line);
+}
+
+.settings__value {
+    font-size: 12px;
+    color: var(--text-soft);
+}
+
+.settings__value--done {
+    color: #4a8062;
+}
+
+/* Строка-настройка с полем времени */
+.settings__row--static {
+    cursor: default;
+}
+
+.settings__time {
+    padding: 6px 10px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-dark);
+    background-color: #f5f9fc;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+}
+
+.settings__text {
+    width: 140px;
+    padding: 6px 10px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    color: var(--accent-dark);
+    background-color: #f5f9fc;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    outline: none;
+}
+
+.settings__text:focus {
+    border-color: var(--accent);
+}
+
+.settings__text::placeholder {
+    font-weight: 400;
+    color: var(--text-soft);
+}
+
+/* Версия приложения — чтобы понимать, какая сборка открыта */
+.app__version {
+    padding-top: 8px;
+    font-size: 11px;
+    text-align: center;
+    color: var(--text-soft);
+}
+
+.settings__row:hover .settings__value,
+.settings__row:hover .chevron {
+    color: var(--accent-dark);
+}
+
+
+/* ---------- Уведомления ---------- */
+
+.notification {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(47, 62, 78, 0.05);
+}
+
+.notification__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+    background-color: #eef4f9;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.notification__title {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.notification__text {
+    margin-top: 2px;
+    font-size: 12px;
+}
+
+.notification__sub {
+    margin-top: 2px;
+    font-size: 11px;
+    color: var(--text-soft);
+}
+
+
+/* ---------- Всплывающие экраны (форма, карточка) ---------- */
+
+.sheet {
+    position: fixed;
+    inset: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 420px;
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px 20px 40px;
+    background: var(--bg-gradient);
+    overflow-y: auto;
+    z-index: 30;
+}
+
+.sheet.is-open {
+    display: flex;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.field__label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-soft);
+}
+
+/* Дата и время в одну строку, но каждая колонка не шире половины формы */
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.input {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 13px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text);
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+}
+
+/* Системные поля даты и времени на iPhone занимают много места —
+   чуть уменьшаем отступы, чтобы влезли в половину строки */
+.input[type="date"],
+.input[type="time"] {
+    padding: 13px 10px;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.input::placeholder {
+    color: var(--text-soft);
+}
+
+.input--area {
+    min-height: 84px;
+    resize: vertical;
+}
+
+/* ---------- Свои поля даты и времени ---------- */
+
+.picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Одинаковые стрелки у всех селектов — в нашем стиле */
+.picker select.input {
+    min-width: 0;
+    padding: 13px 26px 13px 10px;
+    font-size: 14px;
+    text-align: center;
+    text-align-last: center;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b9aa9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 14px;
+}
+
+/* Дата: день / месяц / год одной ширины + иконка */
+.picker--date {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.picker--date select {
+    width: 100%;
+}
+
+/* Значок календаря рядом с датой */
+.picker__icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: var(--text-soft);
+}
+
+/* Время — по левому краю, как остальные поля */
+.picker--time {
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.picker--time .picker__hour,
+.picker--time .picker__minute {
+    flex: 0 0 80px;
+    padding: 14px 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.picker--time .picker__sep {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.picker__sep {
+    font-weight: 600;
+    color: var(--text-soft);
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Ряд фильтров, который можно прокручивать вбок */
+.chips--scroll {
+    flex-wrap: nowrap;
+    padding-bottom: 2px;
+    overflow-x: auto;
+}
+
+.chips--scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.chips--scroll .chip {
+    flex-shrink: 0;
+    padding: 7px 12px;
+    font-size: 12px;
+}
+
+.chip {
+    padding: 8px 14px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--text);
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.chip.is-active {
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn {
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background-color: var(--accent-dark);
+    border-color: var(--accent-dark);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--accent-dark);
+    outline-offset: 2px;
+}
+
+/* Второстепенная кнопка — «пустая», с рамкой */
+.btn--ghost {
+    color: var(--accent-dark);
+    background-color: var(--surface);
+}
+
+.btn--ghost:hover {
+    color: var(--accent-dark);
+    background-color: #f5f9fc;
+}
+
+.btn--danger {
+    color: var(--danger);
+    background-color: var(--surface);
+    border-color: #efd6db;
+}
+
+.btn--danger:hover {
+    color: var(--danger);
+    background-color: #fbeef0;
+    border-color: #efd6db;
+}
+
+
+/* ---------- Карточка дедлайна (подробности) ---------- */
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.detail__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    font-size: 28px;
+    border-radius: 18px;
+}
+
+.detail__subject {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.detail__title {
+    margin-top: -6px;
+    font-size: 14px;
+    color: var(--text-soft);
+}
+
+.detail__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 6px;
+    padding: 16px;
+    background-color: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+}
+
+.detail__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+}
+
+.detail__row-icon {
+    font-size: 14px;
+}
+
+.detail__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+
+/* ---------- Нижнее меню ---------- */
+
+.nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 420px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 10px 0 calc(12px + env(safe-area-inset-bottom));
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    z-index: 10;
+}
+
+.nav__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 0;
+    font-size: 9px;
+    font-family: inherit;
+    color: var(--text-soft);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.nav__item.is-active {
+    font-weight: 600;
+    color: var(--accent-dark);
+}
+
+.nav__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav__icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* ---------- Кнопка "+" ---------- */
+
+.fab {
+    position: fixed;
+    right: max(20px, calc(50% - 194px));
+    bottom: 84px;
+    width: 54px;
+    height: 54px;
+    font-size: 28px;
+    line-height: 1;
+    color: #fff;
+    background-color: var(--accent);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 8px 20px rgba(76, 106, 130, 0.3);
+    cursor: pointer;
+    z-index: 11;
+    transition: transform 0.1s ease;
+}
+
+.fab:active {
+    transform: scale(0.95);
+}

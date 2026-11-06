@@ -1,0 +1,335 @@
+//ЧАСТЬ 1: ОСНОВЫ И ПЕРЕМЕННЫЕ
+
+// 1. Как объявлять переменные (современный способ)
+let name = "Пупуня";      // Изменяемая переменная (можно перезаписать)
+const age = 18;           // Константа (нельзя изменить после создания)
+var oldWay = "устарело";  // Старый способ, лучше не использовать
+
+// 2. Типы данных
+let text = "Привет";      // Строка (текст в кавычках)
+let number = 42;          // Число (без кавычек)
+let isTrue = true;        // Логический тип (true или false)
+let empty = null;         // Пустое значение (ничего)
+let notDefined;           // Значение не задано (undefined)
+
+// 3. Вывод в консоль (не на сайте, а для айтишника)
+console.log("Привет, мир!"); // Текст появится в консоли браузера (F12 -> Console)
+
+
+//ЧАСТЬ 2: ОПЕРАТОРЫ И МАТЕМАТИКА
+
+
+// Математика
+let sum = 5 + 3;          // Сложение 
+let diff = 10 - 4;        // Вычитание 
+let mult = 2 * 3;         // Умножение 
+let div = 10 / 2;         // Деление 
+let remainder = 10 % 3;   // Остаток от деления 
+
+// Сокращенная запись
+let score = 0;
+score = score + 1; // То же самое, что:
+score += 1;        // Прибавить 1 к текущему значению
+score++;           // Увеличить на 1 (самый частый вариант)
+
+// Сравнение
+5 == "5"   // Равно (не строгое, true, т.к. приводит типы)
+5 === "5"  // Строгое равно (false, т.к. разные типы: число и строка) — ИСПОЛЬЗУЙ ЭТО!
+5 != 3     // Не равно (true)
+5 > 3      // Больше (true)
+5 < 3      // Меньше (false)
+
+
+//ЧАСТЬ 3: УСЛОВИЯ (ЛОГИКА)
+
+
+let age = 18;
+
+// Простое условие
+if (age >= 18) {
+    console.log("Ты взрослая!");
+} else {
+    console.log("Ты еще маленькая!");
+}
+
+// Несколько условий
+let score = 85;
+if (score >= 90) {
+    console.log("Отлично!");
+} else if (score >= 70) {
+    console.log("Хорошо!");
+} else {
+    console.log("Надо подучить!");
+}
+
+// Тернарный оператор (короткая запись if/else)
+let message = (age >= 18) ? "Взрослая" : "Маленькая";
+
+
+// ЧАСТЬ 4: ЦИКЛЫ (ПОВТОРЕНИЯ)
+
+
+// Цикл for (повторить 5 раз)
+for (let i = 0; i < 5; i++) {
+    console.log("Итерация номер " + i);
+}
+
+// Перебор массива (списка)
+let fruits = ["яблоко", "банан", "апельсин"];
+for (let fruit of fruits) {
+    console.log(fruit);
+}
+
+// Цикл while (пока условие верно)
+let count = 0;
+while (count < 3) {
+    console.log("Счетчик: " + count);
+    count++;
+}
+
+
+//ЧАСТЬ 5: МАССИВЫ (СПИСКИ)
+
+
+// Создание массива
+let colors = ["красный", "зеленый", "синий"];
+
+// Доступ к элементам (нумерация с 0!)
+console.log(colors[0]); // "красный"
+console.log(colors[2]); // "синий"
+
+// Добавление и удаление
+colors.push("желтый");  // Добавить в конец
+colors.pop();           // Удалить последний
+colors.unshift("белый"); // Добавить в начало
+colors.shift();         // Удалить первый
+
+// Длина массива
+console.log(colors.length); // Сколько элементов
+
+// Перебор массива
+colors.forEach(function(color) {
+    console.log(color);
+});
+
+//ЧАСТЬ 6: ФУНКЦИИ (ДЕЙСТВИЯ)
+
+
+// Обычная функция
+function greet() {
+    console.log("Привет!");
+}
+greet(); // Вызов функции
+
+// Функция с параметрами (принимает данные)
+function greetUser(name) {
+    console.log("Привет, " + name + "!");
+}
+greetUser("Пупуня"); // "Привет, Пупуня!"
+
+// Функция, которая возвращает результат
+function sum(a, b) {
+    return a + b; // Возвращает сумму
+}
+let result = sum(5, 3); // result = 8
+
+// Стрелочная функция (современный короткий синтаксис)
+const multiply = (a, b) => a * b;
+console.log(multiply(2, 4)); // 8
+
+
+//ЧАСТЬ 7: РАБОТА С HTML (DOM)
+
+
+// 1. Найти элементы
+const title = document.querySelector('h1');           // Первый тег h1
+const button = document.getElementById('myBtn');      // По id
+const items = document.querySelectorAll('.item');    // Все элементы с классом .item
+
+// 2. Изменить текст
+title.textContent = "Новый заголовок";
+
+// 3. Изменить стили
+title.style.color = "red";
+title.style.backgroundColor = "yellow";
+
+// 4. Изменить HTML-класс (для CSS)
+title.classList.add('active');       // Добавить класс
+title.classList.remove('active');    // Удалить класс
+title.classList.toggle('active');    // Добавить, если нет, и удалить, если есть
+
+// 5. Работа с атрибутами
+button.setAttribute('disabled', 'true'); // Отключить кнопку
+
+
+//ЧАСТЬ 8: СОБЫТИЯ (ИНТЕРАКТИВНОСТЬ)
+
+
+const myButton = document.querySelector('button');
+
+// 1. Клик по кнопке
+myButton.addEventListener('click', function() {
+    alert('Ты нажала на кнопку!');
+});
+
+// 2. Наведение мыши
+myButton.addEventListener('mouseover', function() {
+    myButton.style.backgroundColor = 'pink';
+});
+
+// 3. Ввод текста в поле
+const input = document.querySelector('input');
+input.addEventListener('input', function() {
+    console.log("Ты пишешь: " + input.value); // .value — то, что введено
+});
+
+// 4. Отправка формы
+const form = document.querySelector('form');
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Отменяет перезагрузку страницы
+    console.log("Форма отправлена!");
+});
+
+
+//ЧАСТЬ 9: ПОЛЕЗНЫЕ ШТУКИ ДЛЯ ПРИЛОЖЕНИЙ
+
+
+// 1. Случайное число (для тестов, игр)
+let randomNum = Math.floor(Math.random() * 10); // Число от 0 до 9
+
+// 2. Всплывающие окна
+alert("Привет!");                                // Окошко с текстом
+let answer = prompt("Как тебя зовут?");          // Окошко с полем ввода
+let confirmAction = confirm("Ты уверена?");      // Окошко с кнопками Да/Нет
+
+// 3. Таймеры (задержка)
+setTimeout(function() {
+    console.log("Прошло 2 секунды");
+}, 2000); // 2000 миллисекунд = 2 секунды
+
+// 4. Повторяющийся таймер
+let interval = setInterval(function() {
+    console.log("Прошла 1 секунда");
+}, 1000);
+clearInterval(interval); // Остановить таймер
+
+// 5. Сохранение данных в браузере (не пропадает при перезагрузке)
+localStorage.setItem('userName', 'Пупуня'); // Сохранить
+let savedName = localStorage.getItem('userName'); // Прочитать
+localStorage.removeItem('userName'); // Удалить
+
+
+//ЧАСТЬ 10: JSON (КАК СОХРАНЯТЬ СЛОЖНЫЕ ДАННЫЕ)
+
+
+// Проблема: localStorage умеет хранить ТОЛЬКО текст (строки).
+// А у нас часто есть массив или объект. Как сохранить список? Ответ — JSON.
+
+let tasks = [
+    { name: "Математика", date: "2026-11-05" },
+    { name: "История", date: "2026-11-10" }
+];
+
+// JSON.stringify — превращает объект/массив в СТРОКУ (чтобы сохранить)
+let text = JSON.stringify(tasks);
+// text = '[{"name":"Математика","date":"2026-11-05"}, ...]'
+
+// Ложем эту строку в браузер
+localStorage.setItem('tasks', text);
+
+// Когда достаём — превращаем строку ОБРАТНО в массив
+let gotText = localStorage.getItem('tasks');
+let tasksAgain = JSON.parse(gotText);
+// tasksAgain — снова обычный массив, можно работать как раньше
+console.log(tasksAgain[0].name); // "Математика"
+
+// Запомни пару:
+//   СОХРАНИТЬ -> JSON.stringify (объект в строку)
+//   ПРОЧИТАТЬ -> JSON.parse (строку в объект)
+
+
+//ЧАСТЬ 11: РАБОТА С ДАТАМИ (Date)
+
+
+// Создаём объект даты
+let now = new Date();              // текущая дата и время
+let someDay = new Date("2026-11-05"); // конкретная дата
+
+// Как достать части даты
+now.getFullYear(); // год, например 2026
+now.getMonth();    // месяц! ВАЖНО: от 0 до 11 (январь = 0, декабрь = 11)
+now.getDate();     // день месяца (1-31)
+now.getHours();    // час
+now.getMinutes();  // минуты
+
+// Чтобы удобно показать месяц по-русски, делают массив названий:
+let months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+              'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+console.log(now.getDate() + ' ' + months[now.getMonth()]); // "5 ноября"
+
+// Математика с датами: сколько дней между двумя датами?
+let start = new Date("2026-11-01");
+let end = new Date("2026-11-10");
+let diffMs = end - start;          // разница в МИЛЛИСЕКУНДАХ
+let diffDays = diffMs / (1000 * 60 * 60 * 24); // переводим в дни
+// 1000 мс * 60 сек * 60 мин * 24 часа = количество мс в одном дне
+
+
+//ЧАСТЬ 12: МЕТОДЫ МАССИВОВ ПОКРУЧЕ
+
+
+// .filter() — оставить ТОЛЬКО те элементы, что проходят проверку
+let numbers = [1, 2, 3, 4, 5, 6];
+let even = numbers.filter(function(num) {
+    return num % 2 === 0; // оставляем только чётные
+});
+// even = [2, 4, 6]
+
+// Стрелочная запись (короче):
+let big = numbers.filter(num => num > 3);
+// big = [4, 5, 6]
+
+// .filter() возвращает НОВЫЙ массив, исходный не меняется — это удобно!
+
+
+//ЧАСТЬ 13: СОЗДАНИЕ ЭЛЕМЕНТОВ ИЗ JS
+
+
+// Раньше мы HTML писали вручную. Но можно создавать его прямо из кода!
+
+// 1. Создать новый элемент (пока нигде не виден)
+let newDiv = document.createElement('div');
+
+// 2. Дать ему класс
+newDiv.className = 'my-card';
+
+// 3. Наполнить содержимым (вставим HTML)
+newDiv.innerHTML = '<h2>Привет</h2><p>Это карточка</p>';
+
+// 4. Приклеить на страницу (в конец какого-то элемента)
+let container = document.getElementById('someContainer');
+container.appendChild(newDiv);
+
+// Ещё можно менять содержимое по кусочкам:
+newDiv.textContent = 'Просто текст';       // только текст (безопаснее)
+newDiv.querySelector('h2').textContent = 'Новый заголовок'; // найти внутри и поменять
+
+
+//ЧАСТЬ 14: БАЗОВЫЙ ПАТТЕРН ПРИЛОЖЕНИЙ (САМОЕ ВАЖНОЕ!)
+
+
+// Почти любое маленькое приложение работает так:
+//   1) Храним данные в массиве
+//   2) Показываем их на экране (рисуем)
+//   3) Когда что-то меняется — перерисовываем
+
+// Это как раз тот "скелет", по которому мы строим планировщик.
+
+let items = []; // наши данные
+
+function render() {
+    // очищаем и рисуем заново всё из массива items
+}
+
+// Правило: изменили данные -> сохранили -> перерисовали
+// (В больших приложениях так же делают React и другие фреймворки, просто умнее)

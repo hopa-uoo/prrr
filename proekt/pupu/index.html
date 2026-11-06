@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>deadline — твои дедлайны в университете</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ ЭКРАН-ПРИВЕТСТВИЕ ============ -->
+<section class="onboarding" id="onboarding">
+    <div class="onboarding__center">
+        <h1 class="onboarding__logo">deadline</h1>
+        <p class="onboarding__subtitle">твои дедлайны<br>в университете</p>
+        <span class="onboarding__heart">♡</span>
+    </div>
+    <button class="btn onboarding__btn" id="startBtn">начать</button>
+</section>
+
+<!-- ============ ПЕРСОНАЛИЗАЦИЯ ============ -->
+<section class="onboarding onboarding--quiz is-hidden" id="quiz">
+    <div class="quiz">
+        <p class="quiz__step" id="quizStep">Вопрос 1 из 2</p>
+
+        <div class="quiz__page" id="quizName">
+            <h2 class="quiz__question">Как тебя зовут?</h2>
+            <input class="quiz__input" type="text" id="nameInput" placeholder="например: Аня" maxlength="30">
+        </div>
+
+        <div class="quiz__page is-hidden" id="quizTime">
+            <h2 class="quiz__question">Во сколько начинается первая пара?</h2>
+            <input class="quiz__input" type="time" id="startTime" value="08:30">
+            <p class="quiz__hint">Дедлайны будут ставиться за 30 минут до неё</p>
+        </div>
+    </div>
+    <button class="btn onboarding__btn" id="quizNext">далее</button>
+</section>
+
+<main class="app">
+
+    <!-- ============ ГЛАВНАЯ ============ -->
+    <section class="screen is-active" id="screen-home">
+
+        <header class="home__header">
+            <div>
+                <h1 class="home__greeting" id="greeting">Привет!</h1>
+                <p class="home__subtitle"> пусть этот день будет продуктивным 🤍</p>
+            </div>
+            <div class="avatar" id="avatar">🙂</div>
+        </header>
+
+        <div class="search">
+            <svg class="search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.7" stroke-linecap="round">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <input type="text" id="searchInput" class="search__input"
+                   placeholder="Поиск по предметам, заданиям...">
+        </div>
+
+        <section class="week">
+            <h2 class="section-title">Ближайшие дедлайны</h2>
+            <div class="week__days" id="weekDays"></div>
+        </section>
+
+        <section class="list" id="homeList"></section>
+
+    </section>
+
+    <!-- ============ ДЕДЛАЙНЫ ============ -->
+    <section class="screen" id="screen-deadlines">
+
+        <header class="screen__header">
+            <h1 class="screen__title">Дедлайны</h1>
+            <span class="section-count" id="deadlinesTotal"></span>
+        </header>
+
+        <div class="chips chips--scroll" id="deadlineFilters">
+            <button type="button" class="chip is-active" data-filter="active">Активные</button>
+            <button type="button" class="chip" data-filter="progress">В работе</button>
+            <button type="button" class="chip" data-filter="done">Выполненные</button>
+            <button type="button" class="chip" data-filter="all">Все</button>
+        </div>
+
+        <div class="list" id="deadlinesList"></div>
+
+    </section>
+
+    <!-- ============ КАЛЕНДАРЬ ============ -->
+    <section class="screen" id="screen-calendar">
+
+        <div class="calendar-card">
+            <header class="screen__header">
+                <h1 class="screen__title" id="calendarTitle">Октябрь 2026</h1>
+                <div class="calendar__nav">
+                    <button class="icon-btn" id="calPrev" aria-label="Предыдущий месяц">‹</button>
+                    <button class="icon-btn" id="calNext" aria-label="Следующий месяц">›</button>
+                </div>
+            </header>
+
+            <div class="calendar__weekdays">
+                <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span>
+                <span>Пт</span><span>Сб</span><span>Вс</span>
+            </div>
+
+            <div class="calendar__grid" id="calendarGrid"></div>
+        </div>
+
+        <div class="section-head">
+            <h2 class="section-title" id="calendarDayTitle">Дедлайны на сегодня</h2>
+            <span class="section-count" id="calendarDayCount"></span>
+        </div>
+
+        <div class="list" id="calendarList"></div>
+
+    </section>
+
+    <!-- ============ ПРЕДМЕТЫ ============ -->
+    <section class="screen" id="screen-subjects">
+
+        <header class="screen__header">
+            <h1 class="screen__title">Предметы</h1>
+        </header>
+
+        <div class="list subjects-list" id="subjectsList"></div>
+
+    </section>
+
+    <!-- ============ ПРОФИЛЬ ============ -->
+    <section class="screen" id="screen-profile">
+
+        <header class="screen__header">
+            <h1 class="screen__title">Профиль</h1>
+        </header>
+
+        <div class="stats-card">
+            <div class="ring" id="statsRing">
+                <div class="ring__inner" id="statsPercent">0%</div>
+            </div>
+            <div>
+                <p class="stats-card__title">Выполнено</p>
+                <p class="stats-card__sub" id="statsCount"></p>
+            </div>
+        </div>
+
+        <div class="bars-card">
+            <h2 class="section-title">Дедлайны по дням недели</h2>
+            <div class="bars" id="statsBars"></div>
+        </div>
+
+        <h2 class="section-title">Настройки</h2>
+        <div class="settings">
+            <div class="settings__row settings__row--static">
+                <span>Имя</span>
+                <input type="text" class="settings__text" id="settingsName" placeholder="Как тебя зовут?" maxlength="30">
+            </div>
+            <div class="settings__row settings__row--static">
+                <span>Начало первой пары</span>
+                <input type="time" class="settings__time" id="firstClassInput" value="08:30">
+            </div>
+            <button class="settings__row" id="clearPastBtn">
+                <span>Очистить прошедшие</span>
+                <span class="settings__value" id="clearPastCount"></span>
+            </button>
+            <button class="settings__row" id="showOnboardingBtn">
+                <span>Показать приветствие</span>
+                <span class="chevron">›</span>
+            </button>
+        </div>
+
+        <h2 class="section-title">Уведомления</h2>
+        <div class="list" id="notificationsList"></div>
+
+        <p class="app__version" id="appVersion"></p>
+
+    </section>
+
+    <!-- ============ ДОБАВЛЕНИЕ / РЕДАКТИРОВАНИЕ ============ -->
+    <section class="sheet" id="screen-add">
+
+        <header class="screen__header">
+            <h1 class="screen__title" id="addFormTitle">Добавить дедлайн</h1>
+            <button class="icon-btn" id="addClose" aria-label="Закрыть">✕</button>
+        </header>
+
+        <form class="form" id="addForm">
+
+            <label class="field">
+                <span class="field__label">Предмет</span>
+                <input class="input" id="addSubject" list="subjectsDatalist" placeholder="Выберите предмет">
+                <datalist id="subjectsDatalist"></datalist>
+            </label>
+
+            <label class="field">
+                <span class="field__label">Название задания</span>
+                <input class="input" id="addTitle" placeholder="например: лабораторная работа № 67">
+            </label>
+
+            <div class="field-row">
+                <label class="field">
+                    <span class="field__label">Дата</span>
+                    <input class="input" type="date" id="addDate">
+                </label>
+                <label class="field">
+                    <span class="field__label">Время</span>
+                    <input class="input" type="time" id="addTime" value="08:00">
+                </label>
+            </div>
+
+            <label class="field">
+                <span class="field__label">Заметки (необязательно)</span>
+                <textarea class="input input--area" id="addNotes" placeholder="Добавить детали..."></textarea>
+            </label>
+
+            <button class="btn" type="submit">Сохранить</button>
+
+        </form>
+
+    </section>
+
+    <!-- ============ КАРТОЧКА ДЕДЛАЙНА ============ -->
+    <section class="sheet" id="screen-detail">
+
+        <header class="screen__header">
+            <h1 class="screen__title">Дедлайн</h1>
+            <button class="icon-btn" id="detailClose" aria-label="Закрыть">✕</button>
+        </header>
+
+        <div class="detail">
+            <div class="detail__icon" id="detailIcon"></div>
+            <h2 class="detail__subject" id="detailSubject"></h2>
+            <p class="detail__title" id="detailTitle"></p>
+
+            <div class="detail__rows">
+                <div class="detail__row">
+                    <span class="detail__row-icon">📅</span>
+                    <span id="detailDate"></span>
+                </div>
+                <div class="detail__row">
+                    <span class="detail__row-icon">⏳</span>
+                    <span id="detailStatus"></span>
+                </div>
+                <div class="detail__row" id="detailNotesRow">
+                    <span class="detail__row-icon">📝</span>
+                    <span id="detailNotes"></span>
+                </div>
+            </div>
+
+            <div class="detail__actions">
+                <button class="btn" id="detailDone">Отметить выполненным</button>
+                <button class="btn btn--ghost" id="detailProgress">Взять в работу</button>
+                <button class="btn btn--ghost" id="detailEdit">Редактировать</button>
+                <button class="btn btn--danger" id="detailDelete">Удалить</button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ============ НИЖНЕЕ МЕНЮ ============ -->
+    <nav class="nav">
+        <button class="nav__item is-active" data-screen="home">
+            <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 10.5 12 3l9 7.5"></path>
+                    <path d="M5.5 9.5V21h13V9.5"></path>
+                </svg>
+            </span>
+            Главная
+        </button>
+
+        <button class="nav__item" data-screen="deadlines">
+            <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 6.5 5.5 8 8 5.5"></path>
+                    <path d="M4 12.5 5.5 14 8 11.5"></path>
+                    <path d="M11 6.5h9M11 12.5h9M11 18h9"></path>
+                </svg>
+            </span>
+            Дедлайны
+        </button>
+
+        <button class="nav__item" data-screen="calendar">
+            <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="16" rx="3"></rect>
+                    <path d="M8 3v4M16 3v4M3 10h18"></path>
+                </svg>
+            </span>
+            Календарь
+        </button>
+
+        <button class="nav__item" data-screen="subjects">
+            <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6.5A2.5 2.5 0 0 1 4 17.5z"></path>
+                    <path d="M8 8h8M8 12h5"></path>
+                </svg>
+            </span>
+            Предметы
+        </button>
+
+        <button class="nav__item" data-screen="profile">
+            <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="8" r="4"></circle>
+                    <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
+                </svg>
+            </span>
+            Профиль
+        </button>
+    </nav>
+
+    <!-- ============ КНОПКА "+" ============ -->
+    <button class="fab" id="fab" aria-label="Добавить дедлайн">+</button>
+
+</main>
+
+<script src="sckript.js"></script>
+</body>
+</html>
